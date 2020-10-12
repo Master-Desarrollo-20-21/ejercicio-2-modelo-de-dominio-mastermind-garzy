@@ -1,0 +1,93 @@
+@startuml MasterMind
+
+class DecodingBoard  {
+-currentRow
+}
+
+class ColorRow {
+
+}
+
+class PegRow {
+
+}
+
+class SecretCombination {
+
+}
+
+class Score {
+
+}
+
+class Player {
+
+}
+
+class Turn {
++change()
+}
+
+class Move {
+ +fillRow()
+}
+
+class MakeColorCombination {
+
+}
+
+class MakePegCombination {
+
+}
+
+Move <|-- MakeColorCombination
+Move <|-- MakePegCombination
+
+enum Color {
+   Red,
+   Blue,
+   Green,
+   Yellow,
+   Pink,
+   White,
+   Black,
+   Brown 
+}
+
+enum PegType {
+    Black, 
+    White
+}
+
+enum ScoreType {
+    Red,
+    Blue
+}
+
+
+DecodingBoard *--> "12" ColorRow
+DecodingBoard *--> "12" PegRow
+DecodingBoard *--> "1" SecretCombination
+DecodingBoard *--> "2" Player
+DecodingBoard *--> Turn
+DecodingBoard *--> Score
+
+Turn --> Player
+
+ColorRow o--> "5" Color
+PegRow o--> "5" PegType
+SecretCombination o--> "5" Color
+note on link : Aleatorio, puede haber reptidos
+
+Player --> SecretCombination
+Player --> Move
+Move --> ColorRow
+
+
+Score *--> ScoreType
+
+MakeColorCombination --> ColorRow
+MakePegCombination --> PegRow
+
+
+@enduml
